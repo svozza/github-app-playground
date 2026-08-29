@@ -33,7 +33,13 @@ creating a GitHub App.
 4. Set the homepage URL to this repository.
 5. Use `https://example.com/github-app-playground/pending` as the temporary
    webhook URL.
-6. Generate a strong webhook secret and store it in a password manager.
+6. Generate a strong webhook secret and store it in a password manager:
+
+   ```bash
+   openssl rand -hex 32 | tr -d '\n' \
+     > /tmp/github-app-webhook-secret
+   chmod 600 /tmp/github-app-webhook-secret
+   ```
 7. Under repository permissions set:
    - **Issues:** Read and write
    - **Pull requests:** Read and write
@@ -131,13 +137,18 @@ Create a deployment role whose trust policy permits only this repository's
       "Condition": {
         "StringEquals": {
           "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
-          "token.actions.githubusercontent.com:sub": "repo:svozza/github-app-playground:environment:dev"
+          "token.actions.githubusercontent.com:sub": "repo:svozza@8573472/github-app-playground@1350730994:environment:dev"
         }
       }
     }
   ]
 }
 ```
+
+This account uses GitHub's customized OIDC subject format with immutable owner
+and repository IDs. In an account using GitHub's default subject format, the
+equivalent value is
+`repo:svozza/github-app-playground:environment:dev`.
 
 Grant the role permission to deploy this CDK stack. For a prototype, an
 administrator policy is expedient but broad. A least-privilege policy should

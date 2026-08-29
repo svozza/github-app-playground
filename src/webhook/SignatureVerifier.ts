@@ -13,14 +13,17 @@ class SignatureVerifier {
   readonly #encoder = new TextEncoder();
   readonly #secretName: string;
   #key?: webcrypto.CryptoKey;
+  #keyExpiresAt = 0;
 
   public constructor() {
     this.#secretName = getStringFromEnv({ key: 'WEBHOOK_SECRET_NAME' });
   }
 
   async #getKey() {
-    if (!this.#key) {
-      const secret = await getSecret<string>(this.#secretName);
+    if (!this.#key || Date.now() >= this.#keyExpiresAt) {
+      const secret = await getSecret<string>(this.#secretName, {
+        maxAge: 60,
+      });
       if (!secret) {
         throw new Error('Webhook secret was not found in Secrets Manager');
       }
@@ -31,6 +34,7 @@ class SignatureVerifier {
         false,
         ['verify']
       );
+      this.#keyExpiresAt = Date.now() + 60_000;
     }
     return this.#key;
   }
