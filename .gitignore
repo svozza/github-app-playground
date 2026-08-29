@@ -1,0 +1,13 @@
+node_modules/
+cdk.out/
+coverage/
+dist/
+.env
+.DS_Store
+
+# Local planning and agent configuration
+PLAN*.md
+plan*.md
+.agents/
+.claude/
+skills-lock.json

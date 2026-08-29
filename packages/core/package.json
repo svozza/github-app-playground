@@ -1,0 +1,14 @@
+{
+  "name": "@github-app-playground/core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./github/appClient": "./src/github/appClient.js",
+    "./logger": "./src/logger.js",
+    "./metrics": "./src/metrics.js",
+    "./withLogger": "./src/withLogger.js",
+    "./withMetrics": "./src/withMetrics.js",
+    "./withParser": "./src/withParser.js"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "version": "0",
+  "id": "11111111-1111-1111-1111-111111111111",
+  "detail-type": "pull_request.opened",
+  "source": "github.com",
+  "account": "123456789012",
+  "time": "2026-08-29T12:00:00Z",
+  "region": "us-east-1",
+  "resources": [],
+  "detail": {
+    "action": "opened",
+    "installation": {
+      "id": 123456
+    },
+    "sender": {
+      "login": "svozza",
+      "type": "User"
+    },
+    "repository": {
+      "name": "github-app-playground",
+      "full_name": "svozza/github-app-playground",
+      "owner": {
+        "login": "svozza"
+      }
+    },
+    "pull_request": {
+      "number": 1,
+      "user": {
+        "login": "svozza"
+      }
+    }
+  }
+}
